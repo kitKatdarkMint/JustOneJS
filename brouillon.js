@@ -3,7 +3,16 @@ const readline = require('readline')
 
 const numPlayer = 5; 
 const fileName = "proposition.txt"
-let proposition = "indice"
+
+// creation d'une interface pour utilisateur
+const rl = readline.createInterface({
+    input: process.stdin,
+    output: process.stdout,
+  });
+let proposition = rl.question("quel est ton indice ?",proposition=>{
+    console.log(`tu as saisi ${proposition}`);
+    rl.close();
+});
 
 fs.writeFile(fileName,proposition,(err)=>{
     if (err) throw err;//a callback function for if operation fails

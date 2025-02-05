@@ -5,24 +5,23 @@ const TOTAL_TOURS = 13;
 const NB_JOUEURS = 5;
 let tourActuel = 0;
 let joueurActif = Math.floor(Math.random() * NB_JOUEURS);
+let motsUtilises = new Set();
 
 // Charger les mots depuis le fichier
-const mots = fs.readFileSync('base_de_données_mots.txt', 'utf-8').split(',');
+const mots = fs.readFileSync('base_de_données_mots.txt', 'utf-8').split(',').map(mot => mot.trim());
 
 const rl = readline.createInterface({
     input: process.stdin,
     output: process.stdout
 });
 
-function choisirMotsAleatoires() {
-    let motsSelectionnes = [];
-    while (motsSelectionnes.length < 5) {
-        let mot = mots[Math.floor(Math.random() * mots.length)].trim();
-        if (!motsSelectionnes.includes(mot)) {
-            motsSelectionnes.push(mot);
-        }
-    }
-    return motsSelectionnes;
+function choisirMotUnique() {
+    let mot;
+    do {
+        mot = mots[Math.floor(Math.random() * mots.length)];
+    } while (motsUtilises.has(mot) && motsUtilises.size < mots.length);
+    motsUtilises.add(mot);
+    return mot;
 }
 
 function nouveauTour() {
@@ -34,27 +33,17 @@ function nouveauTour() {
     
     tourActuel++;
     joueurActif = (joueurActif + 1) % NB_JOUEURS;
-    let motsSelectionnes = choisirMotsAleatoires();
+    let motADeviner = choisirMotUnique();
     
-    console.log(`\nTour ${tourActuel} - Joueur ${joueurActif + 1}, c'est à vous de deviner !`);
-    console.log("Choisissez un chiffre entre 1 et 5 pour sélectionner un mot à deviner :");
+    console.log(`\nTour ${tourActuel} - Joueur ${joueurActif + 1}, fermez les yeux !\n`);
+    console.log("Prenez quelques secondes pour vous éloigner...\n");
     
-    rl.question("Votre choix : ", (choix) => {
-        let indexChoisi = parseInt(choix) - 1;
-        if (indexChoisi < 0 || indexChoisi >= 5 || isNaN(indexChoisi)) {
-            console.log("Choix invalide, un chiffre entre 1 et 5 est requis.");
-            return nouveauTour();
-        }
+    setTimeout(() => {
+        console.log(`Le mot à faire deviner est : ${motADeviner}\n`);
+        console.log("(Les autres joueurs écrivent un indice sans se consulter.)\n");
         
-        console.log("Prenez quelques secondes pour vous éloigner...\n");
-        setTimeout(() => {
-            let motADeviner = motsSelectionnes[indexChoisi];
-            console.log(`Le mot à faire deviner est : ${motADeviner}\n`);
-            console.log("(Les autres joueurs écrivent un indice sans se consulter.)\n");
-            
-            setTimeout(nouveauTour, 5000); // Simule un délai avant le tour suivant
-        }, 3000); // Temps pour permettre au joueur actif de s'éloigner
-    });
+        // Le jeu ne passe plus automatiquement au tour suivant, permettant d'ajouter d'autres actions ici
+    }, 3000); // Temps pour permettre au joueur actif de s'éloigner
 }
 
 // Démarrer le jeu

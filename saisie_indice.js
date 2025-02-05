@@ -18,7 +18,7 @@ const rl = readline.createInterface({
     input: process.stdin,
     output: process.stdout,
 });
-
+fs.re
 /**
  * Fonction pour demander un indice et gérer la suppression des doublons
  */

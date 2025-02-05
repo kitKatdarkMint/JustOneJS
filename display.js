@@ -1,14 +1,33 @@
-const fs = require('fs')
+const fs = require('fs');
+const readline = require('readline');
+
+// Interface readline pour gérer l'entrée utilisateur
+const rl = readline.createInterface({
+    input: process.stdin,
+    output: process.stdout,
+});
 
 function afficheIndice(){
     const text = fs.readFileSync('proposition.txt',{encoding:'utf8'});
-    console.log("Voici tous les indices :")
-    console.log(text)
-    //attente pour que joueur actif saissise reponse retourne la reponse
+    if (!text){
+        console.log("aucun indice dispo")
+    }
+    else{
+        console.log("Voici tous les indices :")
+        console.log(text);
+    }
+    
+    
 }
 
-
-
+function reponse(mot_mystere){
+    return new Promise((resolve) =>{
+        rl.question("d'après les indices quel est le mot-mystere ?", (proposition) => {
+        console.log(`Tu as saisi : ${proposition}`);
+        resolve(proposition.trim().toLowerCase() === mot_mystere.trim().toLowerCase());
+        });
+    });
+}
 function scoreIndice(nb_cartes) {
     if (nb_cartes === 13) {
         console.log("Score parfait ! Y arriverez-vous encore ?");
@@ -26,5 +45,7 @@ function scoreIndice(nb_cartes) {
         console.log("Essayez encore.");
     }
 }
-
-module.exports={afficheIndice,scoreIndice};
+afficheIndice();
+reponse("vache");
+scoreIndice(8);
+module.exports={afficheIndice,scoreIndice,reponse};

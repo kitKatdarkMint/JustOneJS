@@ -60,3 +60,6 @@ function nouveauTour() {
 // Démarrer le jeu
 console.log("Bienvenue dans Just One !\n");
 nouveauTour();
+
+module.exports = {nouveauTour};
+

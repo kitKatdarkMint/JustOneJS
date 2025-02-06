@@ -1,22 +1,21 @@
-// main.js
 const fs = require('fs');
 const readline = require('readline');
 const display = require('./display');
 const saisie_indice = require('./saisie_indice');
 
-const TOTAL_TOURS = 5;
+const TOTAL_TOURS = 13;
 const NB_JOUEURS = 5;
 let tourActuel = 0;
 let score = 0;
 let joueurActif = Math.floor(Math.random() * NB_JOUEURS);
 let motsUtilises = new Set();
 
-// Charger les mots depuis le fichier (les mots doivent être séparés par des virgules)
+
 const mots = fs.readFileSync('base_de_données_mots.txt', 'utf-8')
   .split(',')
   .map(mot => mot.trim());
 
-// Création d'une interface readline partagée
+// Création d'une interface utilisateur
 const rl = readline.createInterface({
   input: process.stdin,
   output: process.stdout
@@ -44,7 +43,7 @@ async function nouveauTour() {
   }
 
   tourActuel++;
-  // Alterner le joueur actif (celui qui devine)
+  
   joueurActif = (joueurActif + 1) % NB_JOUEURS;
   const motADeviner = choisirMotUnique();
 
@@ -52,7 +51,7 @@ async function nouveauTour() {
   console.log(`Joueur ${joueurActif + 1} (devineur), fermez les yeux !`);
   console.log("Les autres joueurs, préparez vos indices...\n");
 
-  // Laisser quelques secondes pour que le devineur ferme les yeux
+  
   await delay(3000);
 
   console.log(`Le mot à faire deviner est : ${motADeviner}\n`);
@@ -68,12 +67,9 @@ async function nouveauTour() {
   // Demander les indices aux autres joueurs
   await saisie_indice.demandeIndices(rl, joueursIndices);
 
-  // Afficher les indices collectés
+  
   display.afficheIndice();
 
-  // Le devineur essaie de deviner le mot
-  // On attend que le devineur saisisse une réponse.
-  // On considère que s'il tape "pass", c'est qu'il passe.
   const reponseDevineur = await display.reponse(rl, motADeviner);
 
   if (reponseDevineur === true) {
@@ -94,6 +90,6 @@ async function nouveauTour() {
   nouveauTour();
 }
 
-// Lancer le jeu
+// programme principal
 console.log("Bienvenue dans Just One !\n");
 nouveauTour();

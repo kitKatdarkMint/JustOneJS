@@ -1,17 +1,11 @@
-// saisie_indice.js
 const fs = require('fs');
 
-/**
- * Attendre un certain temps avant de continuer.
- * @param {number} ms - Durée en millisecondes.
- * @returns {Promise}
- */
 function delay(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-/**
- * Supprime un indice du fichier proposition.txt en réécrivant le contenu.
+/*
+ Supprime un indice du fichier proposition.txt en réécrivant le contenu.
  */
 function supprimerIndiceDuFichier(indiceASupprimer) {
   const fileName = 'proposition.txt';
@@ -31,17 +25,17 @@ function supprimerIndiceDuFichier(indiceASupprimer) {
  * @returns {Promise} Résout avec la liste des indices validés.
  */
 async function demandeIndices(rl, players, motADeviner) {
-  // Réinitialiser (ou créer) le fichier des indices
+  // initialise (ou créer) le fichier des indices
   fs.writeFileSync('proposition.txt', '');
 
   
-  await delay(4000); // Laisser le temps de voir le mot
+  await delay(4000); // temps pour voir le mot mystere
   
-  let indices = [];            // Liste des indices validés
-  let joueurs_indices = {};    // Association indice => numéro du joueur
+  let indices = []; // Liste des indices validés
+  let joueurs_indices = {};  // Association indice => numéro du joueur
 
   for (const joueur of players) {
-    console.clear(); // Effacer la console avant chaque saisie d'indice
+    console.clear(); // efface la console avant chaque saisie d'indice
     
     const indice = await new Promise(r => {
       rl.question(`Joueur ${joueur}, quel est ton indice ? `, (answer) => {
@@ -49,10 +43,10 @@ async function demandeIndices(rl, players, motADeviner) {
       });
     });
 
-    // Vérifier si l'indice a déjà été proposé par un autre joueur
+    // verif des doublons 
     if (joueurs_indices[indice]) {
       console.log(`Doublon détecté pour "${indice}". Les deux indices sont supprimés.`);
-      await delay(2000); // Laisser un temps pour voir le message avant d'effacer
+      await delay(2000); // temps pour voir le message avant d'effacer
       
       supprimerIndiceDuFichier(indice);
       indices = indices.filter(item => item !== indice);

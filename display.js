@@ -1,17 +1,16 @@
-// display.js
 const fs = require('fs');
 
 function afficheIndice() {
   const text = fs.readFileSync('proposition.txt', { encoding: 'utf8' });
   if (!text) {
-    console.log("Aucun indice dispo.");
+    console.log("Aucun indice dispo");
   } else {
     console.log("Voici tous les indices :");
     console.log(text);
   }
 }
 
-// display.js (exemple de modification de la fonction reponse)
+
 function reponse(rl, mot_mystere) {
     return new Promise((resolve) => {
       rl.question("D'après les indices, quel est le mot mystère ? (ou tapez 'pass' pour passer) ", (proposition) => {
@@ -45,4 +44,4 @@ function scoreIndice(score) {
   }
 }
 
-module.exports = { afficheIndice, reponse, scoreIndice };
+module.exports = {afficheIndice, reponse, scoreIndice};

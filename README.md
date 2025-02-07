@@ -14,9 +14,9 @@ Après avoir cloner le dépôt, il suffit d'exécuter le programme principal Mai
 
 Le fichier proposition.txt enregistre les indices des joueurs sous ce format :
 
-Joueur 2: IndiceA
-Joueur 3: IndiceB
-Joueur 4: IndiceC
+Joueur 2: IndiceA \
+Joueur 3: IndiceB \
+Joueur 4: IndiceC \
 Joueur 5: IndiceD
 
 En cas de doublon, les indices concernés sont supprimés.

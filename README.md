@@ -8,7 +8,7 @@ Afin de pouvoir jouer sur votre machine, il est nécessaire d'avoir installé no
 
 # Installation et lancement
 
-Après avoir cloner le dépôt, il suffit d'exécuter le programme principal Main.js pour lancer le jeu.
+Après avoir cloner le dépôt, il suffit d'exécuter la commande npm install.
 
 # Format du fichier proposition.txt
 

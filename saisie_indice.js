@@ -18,11 +18,6 @@ function supprimerIndiceDuFichier(indiceASupprimer) {
  * Demande aux joueurs (sauf le devineur) de saisir un indice unique.
  * Le mot à faire deviner est affiché pendant quelques secondes avant d'effacer l'écran.
  * En cas de doublon, l'indice déjà saisi et le nouvel indice ne seront pas retenus.
- *
- * @param {Interface} rl - L'interface readline partagée.
- * @param {Array} players - Liste des numéros de joueurs devant saisir un indice.
- * @param {string} motADeviner - Le mot à faire deviner.
- * @returns {Promise} Résout avec la liste des indices validés.
  */
 async function demandeIndices(rl, players, motADeviner) {
   // initialise (ou créer) le fichier des indices

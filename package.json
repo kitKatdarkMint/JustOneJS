@@ -1,0 +1,20 @@
+{
+    "name": "just-one-js",
+    "version": "1.0.0",
+    "description": "Just One JS Node.js",
+    "main": "Main.js",
+    "scripts": {
+        "install": "node Main.js && npm install",
+        "start": "node Main.js && node server.js"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/kitKatdarkMint/JustOneJS.git"
+    },
+    "author": "Kathleen Paul-Henri",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/kitKatdarkMint/JustOneJS/issues"
+    },
+    "homepage": "https://github.com/kitKatdarkMint/JustOneJS#readme"
+}

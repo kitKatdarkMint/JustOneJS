@@ -1,4 +1,4 @@
-# Projet JS : JustONe
+# Projet JS : JustOne
 
 Bienvenue dans JustOne, un jeu de devinettes coopératif !
 
